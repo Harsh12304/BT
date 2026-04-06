@@ -183,7 +183,12 @@ let isConnected = false;
 let adminToken = localStorage.getItem("adminToken") || null;
 
 // Sync UI with server on load
-syncWithServer();
+if (!adminToken) {
+  showAuth();
+  updateStatus("🔐 Please authenticate", "bg-yellow-500");
+} else {
+  syncWithServer();
+}
 
 /* ------------------- SERVER STATUS SYNC ------------------- */
 async function syncWithServer() {
