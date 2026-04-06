@@ -1,0 +1,6 @@
+{
+    "watch": ["index.js"],
+    "ignore": ["public/*", "node_modules/*", "*.log"],
+    "ext": "js,json"
+  }
+  
