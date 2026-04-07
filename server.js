@@ -205,7 +205,7 @@ app.post("/connect-whatsapp", async (req, res) => {
 });
 
 // BULK SEND
-app.post("/send-bulk-messages", upload.single("attachment"), async (req, res) => {
+app.post("/send-bulk-messages", upload.array("attachment"), async (req, res) => {
   if (!checkAuthToken(req)) {
     return res.status(401).json({ status: "error", message: "Not authenticated" });
   }
@@ -214,7 +214,7 @@ app.post("/send-bulk-messages", upload.single("attachment"), async (req, res) =>
   }
 
   const { recipientsText, messageTemplate, delay = "60" } = req.body;
-  const attachment = req.file;
+  const attachments = req.files || [];
   const delayMs = Math.max(0, parseInt(delay, 10) || 60) * 1000;
 
   if (!recipientsText || !messageTemplate) {
@@ -343,15 +343,17 @@ app.post("/send-bulk-messages", upload.single("attachment"), async (req, res) =>
       }
 
       try {
-        if (attachment) {
+        // Send message with text
+        await client.sendMessage(`${cleanNumber}@c.us`, personalized);
+        
+        // Send each attachment as a separate message
+        for (const attachment of attachments) {
           const media = new MessageMedia(
             attachment.mimetype,
             attachment.buffer.toString("base64"),
             attachment.originalname
           );
-          await client.sendMessage(`${cleanNumber}@c.us`, media, { caption: personalized });
-        } else {
-          await client.sendMessage(`${cleanNumber}@c.us`, personalized);
+          await client.sendMessage(`${cleanNumber}@c.us`, media);
         }
         sent++;
         currentBulkSent = sent;
