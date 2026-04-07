@@ -216,6 +216,10 @@ app.post("/send-bulk-messages", upload.array("attachment"), async (req, res) => 
   const { recipientsText, messageTemplate, delay = "60" } = req.body;
   const attachments = req.files || [];
   const delayMs = Math.max(0, parseInt(delay, 10) || 60) * 1000;
+  // attachments is an array of files.
+  // Current active mode: Multiple attachments per send.
+  // If you want to restore the old single-file mode, change this route to upload.single("attachment")
+  // and use const attachment = req.file; instead of req.files.
 
   if (!recipientsText || !messageTemplate) {
     return res
@@ -343,10 +347,11 @@ app.post("/send-bulk-messages", upload.array("attachment"), async (req, res) => 
       }
 
       try {
-        // Send message with text
+        // Send message with text first
         await client.sendMessage(`${cleanNumber}@c.us`, personalized);
-        
-        // Send each attachment as a separate message
+
+        // Current active mode: multiple attachments.
+        // Each uploaded file is sent separately as its own message.
         for (const attachment of attachments) {
           const media = new MessageMedia(
             attachment.mimetype,
@@ -355,6 +360,7 @@ app.post("/send-bulk-messages", upload.array("attachment"), async (req, res) => 
           );
           await client.sendMessage(`${cleanNumber}@c.us`, media);
         }
+
         sent++;
         currentBulkSent = sent;
         broadcast({
@@ -373,6 +379,44 @@ app.post("/send-bulk-messages", upload.array("attachment"), async (req, res) => 
           total: recipients.length,
         });
       }
+
+      /*
+        Previous single-attachment logic:
+        ----------------------------------
+        If you want only one attachment per recipient, restore this block.
+        It sends the text message first, then a single attachment if present.
+
+        const attachment = req.file;
+
+        try {
+          await client.sendMessage(`${cleanNumber}@c.us`, personalized);
+          if (attachment) {
+            const media = new MessageMedia(
+              attachment.mimetype,
+              attachment.buffer.toString("base64"),
+              attachment.originalname
+            );
+            await client.sendMessage(`${cleanNumber}@c.us`, media);
+          }
+          sent++;
+          currentBulkSent = sent;
+          broadcast({
+            type: "message_sent",
+            number,
+            status: "Sent",
+            progress: i + 1,
+            total: recipients.length,
+          });
+        } catch (err) {
+          broadcast({
+            type: "message_sent",
+            number,
+            status: `Failed: ${err.message}`,
+            progress: i + 1,
+            total: recipients.length,
+          });
+        }
+      */
 
       if (i < recipients.length - 1 && delayMs > 0) {
         await new Promise((r) => setTimeout(r, delayMs));

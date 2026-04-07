@@ -13,6 +13,12 @@
   #numbersList::-webkit-scrollbar-track{background:#f1f5f9;border-radius:3px}
   #numbersList::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
   #numbersList::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+  .toast-container{position:fixed;top:1rem;right:1rem;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:0.75rem;pointer-events:none;max-width:calc(100%-2rem);width:auto;}
+  .toast-item{transition:transform .25s ease, opacity .25s ease;min-width:20rem;max-width:26rem;box-shadow:0 18px 50px rgba(15,23,42,.18);}
+  @media (max-width: 640px) {
+    .toast-container{top:0.75rem;right:0.75rem;left:0.75rem;align-items:center;}
+    .toast-item{min-width:auto;width:100%;max-width:100%;border-radius:1rem;}
+  }
 </style>
 </head>
 <body class="gradient-bg min-h-screen flex items-center justify-center p-4">
@@ -108,6 +114,13 @@
             <input type="file" id="attachment" name="attachment" accept="*/*" multiple
               class="w-full p-3 border-2 rounded-lg focus:border-blue-500"/>
             <p class="text-gray-500 text-xs mt-1">Upload multiple files. Each will be sent as a separate message.</p>
+            <!--
+              Previous single-attachment mode:
+              Use this when you only want one file per recipient.
+              To restore, remove the "multiple" attribute above,
+              and switch the server-side route from upload.array("attachment")
+              back to upload.single("attachment") with req.file.
+            -->
           </div>
 
           <!-- Actions -->
@@ -147,9 +160,10 @@
     </div>
   </div>
 </div>
+<div id="toastContainer" class="toast-container"></div>
 
 <script>
-/* ------------------- INITIAL SETUP ------------------- */
+/* ------------------- INITIAL SETUP */
 const protocol = location.protocol === "https:" ? "wss" : "ws";
 const ws = new WebSocket(`${protocol}://${location.host}`);
 
@@ -174,6 +188,7 @@ const progressText = document.getElementById("progressText");
 const progressPercent = document.getElementById("progressPercent");
 const bulkStatus = document.getElementById("bulkStatus");
 const numbersList = document.getElementById("numbersList");
+const toastContainer = document.getElementById("toastContainer");
 const stopButtonContainer = document.getElementById("stopButtonContainer");
 const stopBulkBtn = document.getElementById("stopBulkBtn");
 
@@ -255,8 +270,14 @@ function handleWebSocketMessage(data) {
       qrContainer.classList.add("hidden");
       messagingSection.classList.remove("hidden");
       updateStatus("✅ WhatsApp Connected", "bg-green-500");
+      showToast("✅ WhatsApp connected", "success");
       break;
     case "disconnected":
+      isConnected = false;
+      phoneDisplay.classList.add("hidden");
+      messagingSection.classList.add("hidden");
+      updateStatus("❌ Disconnected", "bg-red-500");
+      showToast("❌ WhatsApp disconnected", "error");
       isConnected = false;
       phoneDisplay.classList.add("hidden");
       messagingSection.classList.add("hidden");
@@ -270,6 +291,7 @@ function handleWebSocketMessage(data) {
       progressContainer.classList.remove("hidden");
       stopButtonContainer.classList.remove("hidden");
       numbersList.innerHTML = "";
+      showToast("🚀 Bulk send started", "info");
       break;
     case "message_sent":
       updateProgress(data.progress, data.total);
@@ -285,6 +307,7 @@ function handleWebSocketMessage(data) {
           <p>Sent: ${data.sent}/${data.total}</p>
           ${skippedMsg}
         </div>`;
+      showToast(`✅ Bulk send completed (${data.sent}/${data.total})`, "success");
       break;
     case "bulk_stopped":
       progressContainer.classList.add("hidden");
@@ -296,6 +319,7 @@ function handleWebSocketMessage(data) {
           <p>Sent: ${data.sent}/${data.total}</p>
           ${stopSkippedMsg}
         </div>`;
+      showToast(`🛑 Bulk send stopped (${data.sent}/${data.total})`, "warning");
       break;
     case "logged_out":
       adminToken = null;
@@ -306,6 +330,7 @@ function handleWebSocketMessage(data) {
       qrContainer.classList.add("hidden");
       showAuth();
       updateStatus("🔄 Session cleared", "bg-yellow-500");
+      showToast("🔓 Logged out successfully", "info");
       break;
     case "status":
       // initial WS status snapshot; ignore (syncWithServer already handles)
@@ -328,6 +353,30 @@ function updateProgress(current, total) {
   progressBar.style.width = `${percent}%`;
   progressPercent.textContent = `${percent}%`;
   progressText.textContent = `Sending (${current}/${total})`;
+}
+
+function showToast(message, type = "info", duration = 4000) {
+  if (!toastContainer) return;
+  const toast = document.createElement("div");
+  const typeStyles = {
+    success: "bg-emerald-500 text-white",
+    error: "bg-red-500 text-white",
+    warning: "bg-amber-500 text-black",
+    info: "bg-slate-700 text-white",
+  };
+  toast.className = `toast-item pointer-events-auto max-w-sm w-full rounded-2xl shadow-xl p-4 flex gap-3 items-start ${typeStyles[type] || typeStyles.info}`;
+  toast.style.opacity = "1";
+  toast.style.transform = "translateX(0)";
+  toast.innerHTML = `
+    <div class="text-xl leading-none">${type === "success" ? "✅" : type === "error" ? "❌" : type === "warning" ? "⚠️" : "ℹ️"}</div>
+    <div class="text-sm leading-snug">${message}</div>
+  `;
+  toastContainer.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateX(20px)";
+  }, duration - 500);
+  setTimeout(() => toast.remove(), duration);
 }
 
 function addMessageResult(number, status) {
@@ -367,17 +416,18 @@ async function doLogin() {
       isAuthenticated = true;
       showMain();
       updateStatus("🔄 Ready to connect WhatsApp", "bg-yellow-500");
+      showToast("✅ Logged in successfully", "success");
     } else {
-      alert("❌ Invalid password");
+      showToast("❌ Invalid password", "error");
     }
   } catch {
-    alert("❌ Auth error");
+    showToast("❌ Auth error", "error");
   }
 }
 
 // CONNECT
 connectBtn.addEventListener("click", async () => {
-  if (!adminToken) return alert("Please authenticate first.");
+  if (!adminToken) return showToast("⚠️ Please authenticate first.", "warning");
   connectBtn.disabled = true;
   updateStatus("🔄 Connecting…", "bg-blue-500");
   try {
@@ -391,7 +441,7 @@ connectBtn.addEventListener("click", async () => {
     }
   } catch (err) {
     updateStatus("❌ Connect failed", "bg-red-500");
-    alert(`❌ ${err.message}`);
+    showToast(`❌ ${err.message}`, "error");
   } finally {
     connectBtn.disabled = false;
   }
@@ -400,7 +450,7 @@ connectBtn.addEventListener("click", async () => {
 // SEND BULK
 bulkForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  if (!isConnected) return alert("Connect WhatsApp first!");
+  if (!isConnected) return showToast("⚠️ Connect WhatsApp first!", "warning");
 
   bulkStatus.innerHTML = `<div class="bg-blue-100 text-blue-800 p-4 rounded-lg">🚀 Starting…</div>`;
   const fd = new FormData(bulkForm);
@@ -434,7 +484,7 @@ logoutBtn.addEventListener("click", async () => {
 
 // STOP BULK
 stopBulkBtn.addEventListener("click", async () => {
-  if (!adminToken) return alert("Please authenticate first.");
+  if (!adminToken) return showToast("⚠️ Please authenticate first.", "warning");
   if (confirm("Stop the bulk sending?")) {
     try {
       const res = await fetch("/stop-bulk-send", {
@@ -444,7 +494,7 @@ stopBulkBtn.addEventListener("click", async () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.message || "Stop failed");
     } catch (err) {
-      alert(`❌ ${err.message}`);
+      showToast(`❌ ${err.message}`, "error");
     }
   }
 });
