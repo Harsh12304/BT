@@ -23,7 +23,7 @@ const WHATSAPP_HEADLESS = process.env.WHATSAPP_HEADLESS?.toLowerCase() === "true
 const PUPPETEER_EXECUTABLE_PATH = process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROME_PATH;
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server });
 const upload = multer({ storage: multer.memoryStorage() });
