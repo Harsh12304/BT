@@ -85,6 +85,7 @@ async function initializeClient() {
   }
 
   isInitializing = true;
+  console.log('Initializing WhatsApp client...');
   if (client) {
     try {
       await client.destroy();
@@ -121,6 +122,7 @@ async function initializeClient() {
 
     client.on("qr", async (qr) => {
       // QR will only fire if no valid saved session
+      console.log('QR code generated, broadcasting...');
       try {
         const qrImage = await qrcode.toDataURL(qr);
         broadcast({
@@ -155,6 +157,7 @@ async function initializeClient() {
     });
 
     await client.initialize();
+    console.log('Client initialization completed');
   } catch (err) {
     console.error('Client initialization failed:', err);
   } finally {
