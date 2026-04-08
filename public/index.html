@@ -165,7 +165,7 @@
 <script>
 /* ------------------- INITIAL SETUP */
 const protocol = location.protocol === "https:" ? "wss" : "ws";
-const ws = new WebSocket(`${protocol}://${location.host}`);
+const ws = new WebSocket(`${protocol}://${location.host}/ws`);
 
 // DOM refs
 const authScreen = document.getElementById("authScreen");

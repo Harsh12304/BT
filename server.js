@@ -25,7 +25,7 @@ const PUPPETEER_EXECUTABLE_PATH = process.env.PUPPETEER_EXECUTABLE_PATH || proce
 const app = express();
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ server, path: "/ws" });
 const upload = multer({ storage: multer.memoryStorage() });
 
 // --- Middleware ---
@@ -513,7 +513,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-server.listen(port, () => {
-  console.log(`🚀 WhatsApp Bulk Sender running on http://localhost:${port}`);
+server.listen(port, "0.0.0.0", () => {
+  console.log(`🚀 WhatsApp Bulk Sender running on port ${port}`);
   console.log(`📱 Admin Password: ${ADMIN_PASSWORD}`);
 });
