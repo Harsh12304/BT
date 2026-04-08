@@ -165,7 +165,13 @@
 <script>
 /* ------------------- INITIAL SETUP */
 const protocol = location.protocol === "https:" ? "wss" : "ws";
-const ws = new WebSocket(`${protocol}://${location.host}/ws`);
+const ws = new WebSocket(`${protocol}://${location.host}`);
+
+// WebSocket event handlers
+ws.onopen = () => console.log("WS: connected");
+ws.onmessage = ({ data }) => handleWebSocketMessage(JSON.parse(data));
+ws.onerror = (error) => console.error("WS error:", error);
+ws.onclose = (event) => console.log("WS closed:", event.code, event.reason);
 
 // DOM refs
 const authScreen = document.getElementById("authScreen");

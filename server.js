@@ -25,7 +25,7 @@ const PUPPETEER_EXECUTABLE_PATH = process.env.PUPPETEER_EXECUTABLE_PATH || proce
 const app = express();
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server, path: "/ws" });
+const wss = new WebSocketServer({ server });
 const upload = multer({ storage: multer.memoryStorage() });
 
 // --- Middleware ---
@@ -496,7 +496,7 @@ app.get("/status", (req, res) => {
 
 // --- WebSocket connection handler ---
 wss.on("connection", (ws) => {
-  console.log("WS: new connection");
+  console.log("WS: new connection established");
   ws.send(
     JSON.stringify({
       type: "status",
@@ -505,7 +505,7 @@ wss.on("connection", (ws) => {
       phoneNumber: currentUser,
     })
   );
-  ws.on("close", () => console.log("WS: closed"));
+  ws.on("close", () => console.log("WS: connection closed"));
 });
 
 // Serve frontend
