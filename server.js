@@ -19,7 +19,7 @@ const __dirname = path.dirname(__filename);
 const ADMIN_PASSWORD = "harsh";
 const SESSION_ID = "default"; // persistent WA session folder
 const SESSION_ROOT = path.join(__dirname, ".wwebjs_auth", SESSION_ID);
-const WHATSAPP_HEADLESS = process.env.WHATSAPP_HEADLESS?.toLowerCase() === "true";
+const WHATSAPP_HEADLESS = process.env.WHATSAPP_HEADLESS?.toLowerCase() === "true" || true; // default to true for production
 const PUPPETEER_EXECUTABLE_PATH = process.env.PUPPETEER_EXECUTABLE_PATH || process.env.CHROME_PATH;
 
 const app = express();
