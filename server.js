@@ -331,7 +331,7 @@ app.post("/send-bulk-messages", upload.array("attachment"), async (req, res) => 
 
       const personalized = messageTemplate.replace(
         /{(\w+)}/g,
-        (_, k) => row[k] || `{${k}}`
+        (_, k) => row[k] || ``
       );
       const cleanNumber = number.replace(/[^\d]/g, '');
 
