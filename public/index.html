@@ -8,41 +8,41 @@
 <style>
   .fade-in{animation:fadeIn .5s ease-in}@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
   .pulse-dot{animation:pulse 2s infinite}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-  .gradient-bg{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%)}
+  .premium-bg{background:linear-gradient(180deg,#f8fafc 0%,#eef4ff 100%)}
   #numbersList::-webkit-scrollbar{width:6px}
-  #numbersList::-webkit-scrollbar-track{background:#f1f5f9;border-radius:3px}
+  #numbersList::-webkit-scrollbar-track{background:#eef2f7;border-radius:3px}
   #numbersList::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
   #numbersList::-webkit-scrollbar-thumb:hover{background:#94a3b8}
   .toast-container{position:fixed;top:1rem;right:1rem;z-index:50;display:flex;flex-direction:column;align-items:flex-end;gap:0.75rem;pointer-events:none;max-width:calc(100%-2rem);width:auto;}
-  .toast-item{transition:transform .25s ease, opacity .25s ease;min-width:20rem;max-width:26rem;box-shadow:0 18px 50px rgba(15,23,42,.18);}
+  .toast-item{transition:transform .25s ease, opacity .25s ease;min-width:20rem;max-width:26rem;box-shadow:0 18px 50px rgba(15,23,42,.12);}
   @media (max-width: 640px) {
     .toast-container{top:0.75rem;right:0.75rem;left:0.75rem;align-items:center;}
     .toast-item{min-width:auto;width:100%;max-width:100%;border-radius:1rem;}
   }
 </style>
 </head>
-<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
-<div class="w-full max-w-4xl">
+<body class="premium-bg min-h-screen flex items-center justify-center p-4">
+<div class="w-full max-w-5xl">
   <div class="text-center mb-8">
-    <h1 class="text-4xl font-bold text-white mb-2">📱 WhatsApp Bulk Sender Pro</h1>
-    <p class="text-white/80">Professional bulk messaging solution</p>
+    <h1 class="text-4xl font-semibold text-slate-900 mb-2">WhatsApp Bulk Sender Pro</h1>
+    <p class="text-slate-500">Professional bulk messaging solution</p>
   </div>
 
-  <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden">
+  <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
     <!-- Auth -->
     <div id="authScreen" class="p-8 text-center">
       <div class="mb-8">
-        <div class="w-20 h-20 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-          <span class="text-3xl">🔐</span>
-        </div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-2">Secure Access</h2>
-        <p class="text-gray-600">Enter your password to continue</p>
+        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-white font-semibold"> <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="black">
+  <path d="M20.52 3.48A11.9 11.9 0 0 0 12 0C5.37 0 .03 5.34.03 11.97c0 2.11.55 4.17 1.6 5.99L0 24l6.22-1.63a11.94 11.94 0 0 0 5.78 1.47h.01c6.63 0 11.97-5.34 11.97-11.97a11.9 11.9 0 0 0-3.48-8.39Zm-8.52 18.52h-.01a9.86 9.86 0 0 1-5-1.37l-3.58.94.95-3.47a9.9 9.9 0 0 1-1.51-5.26c0-5.47 4.45-9.93 9.93-9.93a9.8 9.8 0 0 1 7.03 2.91a9.87 9.87 0 0 1 2.89 7.02c0 5.47-4.45 9.93-9.93 9.93Zm5.44-7.45c-.3-.15-1.76-.87-2.03-.97s-.47-.15-.67.15-.77.97-.94 1.17-.34.22-.64.07a8.06 8.06 0 0 1-2.37-1.47a8.85 8.85 0 0 1-1.64-2.04c-.17-.29 0-.45.13-.6s.29-.34.44-.51a2 2 0 0 0 .29-.48.52.52 0 0 0 0-.51c-.07-.15-.67-1.6-.92-2.19s-.49-.49-.67-.5h-.57a1.1 1.1 0 0 0-.8.37a3.37 3.37 0 0 0-1.04 2.51a5.9 5.9 0 0 0 1.23 3.11c1.51 2.29 3.45 3.99 5.94 5.12c1.86.8 3.27.92 4.45.77a3.82 3.82 0 0 0 2.5-1.77a3.1 3.1 0 0 0 .22-1.77c-.1-.15-.37-.24-.67-.39Z"/>
+</svg></div>
+        <h2 class="text-2xl font-semibold text-slate-900 mb-2">Secure Access</h2>
+        <p class="text-slate-500">Enter your password to continue</p>
       </div>
       <div class="max-w-sm mx-auto">
         <input type="password" id="passwordInput" placeholder="Password"
-               class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 mb-4"/>
+               class="w-full px-4 py-3 border border-slate-300 rounded-xl focus:border-slate-900 focus:outline-none mb-4"/>
         <button id="loginBtn"
-                class="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg hover:scale-105 transition">
+                class="w-full bg-slate-900 text-white py-3 rounded-xl hover:bg-slate-800 transition font-medium">
           Access Dashboard
         </button>
       </div>
@@ -51,30 +51,30 @@
     <!-- Main -->
     <div id="mainScreen" class="hidden">
       <!-- Status -->
-      <div id="statusBar" class="bg-yellow-500 p-4 text-center">
+      <div id="statusBar" class="bg-slate-100 p-4 text-center border-b border-slate-200">
         <div class="flex items-center justify-center space-x-2">
-          <div class="pulse-dot w-3 h-3 bg-white rounded-full"></div>
-          <span class="text-white font-medium">Initializing...</span>
+          <div class="pulse-dot w-2 h-2 bg-slate-900 rounded-full"></div>
+          <span class="text-slate-700 font-medium">Initializing...</span>
         </div>
       </div>
 
       <!-- Connection -->
-      <div id="connectionSection" class="p-6 border-b">
+      <div id="connectionSection" class="p-6 border-b border-slate-200">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-xl font-bold text-gray-800">WhatsApp Connection</h3>
-          <div id="phoneDisplay" class="hidden bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+          <h3 class="text-xl font-semibold text-slate-900">Connection</h3>
+          <div id="phoneDisplay" class="hidden bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-sm border border-emerald-100">
             <span id="phoneNumber"></span>
           </div>
         </div>
         <div id="qrSection" class="text-center py-8">
-          <button id="connectBtn" class="bg-green-500 text-white py-3 px-6 rounded-lg">
-            🚀 Connect WhatsApp
+          <button id="connectBtn" class="bg-slate-900 text-white py-3 px-6 rounded-xl font-medium hover:bg-slate-800 transition">
+            Connect WhatsApp
           </button>
           <div id="qrContainer" class="hidden mt-6">
-            <div class="bg-white p-4 rounded-lg inline-block shadow-lg">
+            <div class="bg-white p-4 rounded-2xl inline-block border border-slate-200 shadow-sm">
               <img id="qrImage" alt="QR Code" class="w-64 h-64"/>
             </div>
-            <p class="text-gray-600 mt-4">Scan this QR code with WhatsApp</p>
+            <p class="text-slate-500 mt-4">Scan this QR code with WhatsApp</p>
           </div>
         </div>
       </div>
@@ -84,36 +84,36 @@
         <form id="bulkForm" class="space-y-6" enctype="multipart/form-data">
           <!-- Recipients -->
           <div>
-            <label class="block font-semibold mb-2">📋 Recipients CSV</label>
+            <label class="block font-semibold mb-2">Recipients CSV</label>
             <textarea id="recipientsText" name="recipientsText"
               placeholder="number,name&#10;+919876543210,John Doe&#10;+447700900123,Jane Smith"
-              class="w-full h-48 p-3 border-2 rounded-lg focus:border-blue-500 resize-none"
+              class="w-full h-48 p-3 border border-slate-300 rounded-xl focus:border-slate-900 focus:outline-none resize-none"
               required></textarea>
-            <p class="text-gray-500 text-xs mt-1">⚠️ <strong>Phone numbers MUST include country code</strong> (e.g., +91 for India, +1 for USA, +44 for UK). Enter <strong>one number per line</strong> in the format: number,name. Ensure numbers have valid WhatsApp accounts.</p>
+            <p class="text-slate-500 text-xs mt-1"><strong>Phone numbers must include country code</strong> (for example, +91 for India, +1 for USA, +44 for UK). Enter one number per line in the format: number,name.</p>
           </div>
 
           <!-- Message -->
           <div>
-            <label class="block font-semibold mb-2">💬 Message Template</label>
+            <label class="block font-semibold mb-2">Message Template</label>
             <textarea id="messageTemplate" name="messageTemplate"
               placeholder="Hello {name}, your personalized message!"
-              class="w-full h-32 p-3 border-2 rounded-lg focus:border-blue-500 resize-none"
+              class="w-full h-32 p-3 border border-slate-300 rounded-xl focus:border-slate-900 focus:outline-none resize-none"
               required></textarea>
           </div>
 
           <!-- Delay -->
           <div class="flex items-center space-x-2">
-            <label for="delayInput" class="font-semibold">⏱️ Delay (sec):</label>
+            <label for="delayInput" class="font-semibold">Delay (sec):</label>
             <input type="number" id="delayInput" name="delay" value="60" min="0"
-              class="w-24 p-2 border-2 rounded-lg focus:border-blue-500"/>
+              class="w-24 p-2 border border-slate-300 rounded-xl focus:border-slate-900 focus:outline-none"/>
           </div>
 
           <!-- Attachments -->
           <div>
-            <label class="block font-semibold mb-2">📎 Attachments (Optional)</label>
+            <label class="block font-semibold mb-2">Attachments (Optional)</label>
             <input type="file" id="attachment" name="attachment" accept="*/*" multiple
-              class="w-full p-3 border-2 rounded-lg focus:border-blue-500"/>
-            <p class="text-gray-500 text-xs mt-1">Upload multiple files. Each will be sent as a separate message.</p>
+              class="w-full p-3 border border-slate-300 rounded-xl focus:border-slate-900 focus:outline-none"/>
+            <p class="text-slate-500 text-xs mt-1">Upload multiple files. Each will be sent as a separate message.</p>
             <!--
               Previous single-attachment mode:
               Use this when you only want one file per recipient.
@@ -126,11 +126,11 @@
           <!-- Actions -->
           <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
             <button type="submit"
-              class="w-full sm:flex-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white py-3 rounded-lg hover:scale-105 transition text-center">
+              class="w-full sm:flex-1 bg-slate-900 text-white py-3 rounded-xl hover:bg-slate-800 transition text-center font-medium">
                Send Bulk Messages
             </button>
             <button id="logoutBtn" type="button"
-              class="w-full sm:w-auto bg-red-500 text-white py-3 px-4 rounded-lg transition hover:bg-red-600">
+              class="w-full sm:w-auto bg-white text-slate-700 py-3 px-4 rounded-xl border border-slate-300 transition hover:bg-slate-50 font-medium">
               Logout & Switch Account
             </button>
           </div>
@@ -138,24 +138,24 @@
       </div>
 
       <!-- Results -->
-      <div id="resultsSection" class="p-6 border-t hidden">
-        <h3 class="font-bold mb-4">📊 Sending Progress</h3>
+      <div id="resultsSection" class="p-6 border-t border-slate-200 hidden">
+        <h3 class="font-semibold mb-4 text-slate-900">Sending Progress</h3>
         <div id="progressContainer" class="hidden mb-4">
-          <div class="flex justify-between text-sm text-gray-600 mb-1">
+          <div class="flex justify-between text-sm text-slate-500 mb-1">
             <span id="progressText">Sending messages...</span>
             <span id="progressPercent">0%</span>
           </div>
-          <div class="w-full bg-gray-200 h-2 rounded-full">
-            <div id="progressBar" class="h-2 rounded-full transition-all bg-blue-500" style="width:0%"></div>
+          <div class="w-full bg-slate-200 h-2 rounded-full">
+            <div id="progressBar" class="h-2 rounded-full transition-all bg-slate-900" style="width:0%"></div>
           </div>
         </div>
         <div id="bulkStatus" class="mb-4"></div>
         <div id="stopButtonContainer" class="mb-4 hidden">
-          <button id="stopBulkBtn" class="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
-            🛑 Stop Sending
+          <button id="stopBulkBtn" class="bg-white text-slate-700 py-2 px-4 rounded-xl border border-slate-300 hover:bg-slate-50 font-medium">
+            Stop Sending
           </button>
         </div>
-        <div id="numbersList" class="bg-gray-50 p-4 rounded-lg max-h-64 overflow-y-auto"></div>
+        <div id="numbersList" class="bg-slate-50 p-4 rounded-xl max-h-64 overflow-y-auto"></div>
       </div>
     </div>
   </div>
@@ -206,7 +206,7 @@ let adminToken = localStorage.getItem("adminToken") || null;
 // Sync UI with server on load
 if (!adminToken) {
   showAuth();
-  updateStatus("🔐 Please authenticate", "bg-yellow-500");
+  updateStatus("Please authenticate", "bg-slate-100 text-slate-700");
 } else {
   syncWithServer();
 }
@@ -226,17 +226,19 @@ async function syncWithServer() {
       adminToken = null;
       localStorage.removeItem("adminToken");
       showAuth();
-      updateStatus("🔐 Please authenticate", "bg-yellow-500");
+      updateStatus("Please authenticate", "bg-slate-100 text-slate-700");
       return;
     }
 
     // We are authenticated server-side; show dashboard
     showMain();
-    updateStatus(st.connected ? "✅ WhatsApp Connected" : "🔄 Ready to connect WhatsApp",
-                 st.connected ? "bg-green-500" : "bg-yellow-500");
+    updateStatus(
+      st.connected ? "WhatsApp connected" : "Ready to connect WhatsApp",
+      st.connected ? "bg-emerald-50 text-emerald-700" : "bg-slate-100 text-slate-700"
+    );
 
     if (st.phoneNumber) {
-      phoneNumber.textContent = `📱 ${st.phoneNumber}`;
+      phoneNumber.textContent = st.phoneNumber;
       phoneDisplay.classList.remove("hidden");
       messagingSection.classList.remove("hidden");
     } else {
@@ -267,37 +269,37 @@ function handleWebSocketMessage(data) {
     case "qr_code":
       qrImage.src = data.qrCode;
       qrContainer.classList.remove("hidden");
-      updateStatus("📱 Scan QR code", "bg-blue-500");
+      updateStatus("Scan QR code", "bg-sky-50 text-sky-700");
       break;
     case "ready":
       isConnected = true;
-      phoneNumber.textContent = `📱 ${data.phoneNumber}`;
+      phoneNumber.textContent = data.phoneNumber;
       phoneDisplay.classList.remove("hidden");
       qrContainer.classList.add("hidden");
       messagingSection.classList.remove("hidden");
-      updateStatus("✅ WhatsApp Connected", "bg-green-500");
-      showToast("✅ WhatsApp connected", "success");
+      updateStatus("WhatsApp connected", "bg-emerald-50 text-emerald-700");
+      showToast("WhatsApp connected", "success");
       break;
     case "disconnected":
       isConnected = false;
       phoneDisplay.classList.add("hidden");
       messagingSection.classList.add("hidden");
-      updateStatus("❌ Disconnected", "bg-red-500");
-      showToast("❌ WhatsApp disconnected", "error");
+      updateStatus("Disconnected", "bg-rose-50 text-rose-700");
+      showToast("WhatsApp disconnected", "error");
       isConnected = false;
       phoneDisplay.classList.add("hidden");
       messagingSection.classList.add("hidden");
-      updateStatus("❌ Disconnected", "bg-red-500");
+      updateStatus("Disconnected", "bg-rose-50 text-rose-700");
       break;
     case "auth_failure":
-      updateStatus("❌ Auth failed", "bg-red-500");
+      updateStatus("Authentication failed", "bg-rose-50 text-rose-700");
       break;
     case "bulk_start":
       resultsSection.classList.remove("hidden");
       progressContainer.classList.remove("hidden");
       stopButtonContainer.classList.remove("hidden");
       numbersList.innerHTML = "";
-      showToast("🚀 Bulk send started", "info");
+      showToast("Bulk send started", "info");
       break;
     case "message_sent":
       updateProgress(data.progress, data.total);
@@ -306,26 +308,26 @@ function handleWebSocketMessage(data) {
     case "bulk_complete":
       progressContainer.classList.add("hidden");
       stopButtonContainer.classList.add("hidden");
-      const skippedMsg = data.skipped > 0 ? `<p class="text-yellow-600 text-sm mt-2">⚠️ Skipped: ${data.skipped} (invalid format)</p>` : '';
+      const skippedMsg = data.skipped > 0 ? `<p class="text-amber-700 text-sm mt-2">Skipped: ${data.skipped} (invalid format)</p>` : '';
       bulkStatus.innerHTML = `
-        <div class="bg-green-100 text-green-800 p-4 rounded-lg">
-          <p class="font-semibold">✅ Completed!</p>
+        <div class="bg-emerald-50 text-emerald-800 p-4 rounded-xl border border-emerald-100">
+          <p class="font-semibold">Completed</p>
           <p>Sent: ${data.sent}/${data.total}</p>
           ${skippedMsg}
         </div>`;
-      showToast(`✅ Bulk send completed (${data.sent}/${data.total})`, "success");
+      showToast(`Bulk send completed (${data.sent}/${data.total})`, "success");
       break;
     case "bulk_stopped":
       progressContainer.classList.add("hidden");
       stopButtonContainer.classList.add("hidden");
-      const stopSkippedMsg = data.skipped > 0 ? `<p class="text-yellow-600 text-sm mt-2">⚠️ Skipped: ${data.skipped} (invalid format)</p>` : '';
+      const stopSkippedMsg = data.skipped > 0 ? `<p class="text-amber-700 text-sm mt-2">Skipped: ${data.skipped} (invalid format)</p>` : '';
       bulkStatus.innerHTML = `
-        <div class="bg-orange-100 text-orange-800 p-4 rounded-lg">
-          <p class="font-semibold">🛑 Stopped!</p>
+        <div class="bg-amber-50 text-amber-800 p-4 rounded-xl border border-amber-100">
+          <p class="font-semibold">Stopped</p>
           <p>Sent: ${data.sent}/${data.total}</p>
           ${stopSkippedMsg}
         </div>`;
-      showToast(`🛑 Bulk send stopped (${data.sent}/${data.total})`, "warning");
+      showToast(`Bulk send stopped (${data.sent}/${data.total})`, "warning");
       break;
     case "logged_out":
       adminToken = null;
@@ -335,8 +337,8 @@ function handleWebSocketMessage(data) {
       messagingSection.classList.add("hidden");
       qrContainer.classList.add("hidden");
       showAuth();
-      updateStatus("🔄 Session cleared", "bg-yellow-500");
-      showToast("🔓 Logged out successfully", "info");
+      updateStatus("Session cleared", "bg-slate-100 text-slate-700");
+      showToast("Logged out successfully", "info");
       break;
     case "status":
       // initial WS status snapshot; ignore (syncWithServer already handles)
@@ -347,10 +349,13 @@ function handleWebSocketMessage(data) {
 /* ------------------- UI HELPERS ------------------- */
 function updateStatus(message, bgClass) {
   statusBar.className = `${bgClass} p-4 text-center`;
+  const isDark = bgClass.includes("bg-slate-900") || bgClass.includes("bg-slate-800") || bgClass.includes("bg-slate-700");
+  const textClass = isDark ? "text-white" : "text-slate-700";
+  const dotClass = isDark ? "bg-white" : "bg-slate-900";
   statusBar.innerHTML = `
     <div class="flex items-center justify-center space-x-2">
-      <div class="pulse-dot w-3 h-3 bg-white rounded-full"></div>
-      <span class="text-white font-medium">${message}</span>
+      <div class="pulse-dot w-2 h-2 ${dotClass} rounded-full"></div>
+      <span class="${textClass} font-medium">${message}</span>
     </div>`;
 }
 
@@ -365,18 +370,15 @@ function showToast(message, type = "info", duration = 4000) {
   if (!toastContainer) return;
   const toast = document.createElement("div");
   const typeStyles = {
-    success: "bg-emerald-500 text-white",
-    error: "bg-red-500 text-white",
-    warning: "bg-amber-500 text-black",
-    info: "bg-slate-700 text-white",
+    success: "bg-emerald-600 text-white",
+    error: "bg-rose-600 text-white",
+    warning: "bg-amber-500 text-slate-900",
+    info: "bg-slate-800 text-white",
   };
-  toast.className = `toast-item pointer-events-auto max-w-sm w-full rounded-2xl shadow-xl p-4 flex gap-3 items-start ${typeStyles[type] || typeStyles.info}`;
+  toast.className = `toast-item pointer-events-auto max-w-sm w-full rounded-2xl shadow-xl p-4 ${typeStyles[type] || typeStyles.info}`;
   toast.style.opacity = "1";
   toast.style.transform = "translateX(0)";
-  toast.innerHTML = `
-    <div class="text-xl leading-none">${type === "success" ? "✅" : type === "error" ? "❌" : type === "warning" ? "⚠️" : "ℹ️"}</div>
-    <div class="text-sm leading-snug">${message}</div>
-  `;
+  toast.innerHTML = `<div class="text-sm leading-snug">${message}</div>`;
   toastContainer.appendChild(toast);
   setTimeout(() => {
     toast.style.opacity = "0";
@@ -389,10 +391,10 @@ function addMessageResult(number, status) {
   const ok = status === "Sent";
   numbersList.insertAdjacentHTML(
     "beforeend",
-    `<div class="flex justify-between py-2 border-b">
-       <span>${number}</span>
-       <span class="${ok ? "text-green-600" : "text-red-600"}">
-         ${ok ? "✅" : "❌"} ${status}
+    `<div class="flex justify-between py-2 border-b border-slate-200">
+       <span class="text-slate-700">${number}</span>
+       <span class="${ok ? "text-emerald-700" : "text-rose-700"}">
+         ${status}
        </span>
      </div>`
   );
@@ -421,21 +423,21 @@ async function doLogin() {
       localStorage.setItem("adminToken", adminToken);
       isAuthenticated = true;
       showMain();
-      updateStatus("🔄 Ready to connect WhatsApp", "bg-yellow-500");
-      showToast("✅ Logged in successfully", "success");
+      updateStatus("Ready to connect WhatsApp", "bg-slate-100 text-slate-700");
+      showToast("Logged in successfully", "success");
     } else {
-      showToast("❌ Invalid password", "error");
+      showToast("Invalid password", "error");
     }
   } catch {
-    showToast("❌ Auth error", "error");
+    showToast("Authentication error", "error");
   }
 }
 
 // CONNECT
 connectBtn.addEventListener("click", async () => {
-  if (!adminToken) return showToast("⚠️ Please authenticate first.", "warning");
+  if (!adminToken) return showToast("Please authenticate first.", "warning");
   connectBtn.disabled = true;
-  updateStatus("🔄 Connecting…", "bg-blue-500");
+  updateStatus("Connecting", "bg-sky-50 text-sky-700");
   try {
     const res = await fetch("/connect-whatsapp", {
       method: "POST",
@@ -446,8 +448,8 @@ connectBtn.addEventListener("click", async () => {
       throw new Error(data?.message || "Connect failed");
     }
   } catch (err) {
-    updateStatus("❌ Connect failed", "bg-red-500");
-    showToast(`❌ ${err.message}`, "error");
+    updateStatus("Connect failed", "bg-rose-50 text-rose-700");
+    showToast(err.message, "error");
   } finally {
     connectBtn.disabled = false;
   }
@@ -456,9 +458,9 @@ connectBtn.addEventListener("click", async () => {
 // SEND BULK
 bulkForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  if (!isConnected) return showToast("⚠️ Connect WhatsApp first!", "warning");
+  if (!isConnected) return showToast("Connect WhatsApp first.", "warning");
 
-  bulkStatus.innerHTML = `<div class="bg-blue-100 text-blue-800 p-4 rounded-lg">🚀 Starting…</div>`;
+  bulkStatus.innerHTML = `<div class="bg-sky-50 text-sky-800 p-4 rounded-xl border border-sky-100">Starting send</div>`;
   const fd = new FormData(bulkForm);
   try {
     const res = await fetch("/send-bulk-messages", {
@@ -469,7 +471,7 @@ bulkForm.addEventListener("submit", async (e) => {
     const data = await res.json();
     if (!res.ok) throw new Error(data?.message || "Send failed");
   } catch (err) {
-    bulkStatus.innerHTML = `<div class="bg-red-100 text-red-800 p-4 rounded-lg">❌ ${err.message}</div>`;
+    bulkStatus.innerHTML = `<div class="bg-rose-50 text-rose-800 p-4 rounded-xl border border-rose-100">${err.message}</div>`;
   }
 });
 
@@ -490,7 +492,7 @@ logoutBtn.addEventListener("click", async () => {
 
 // STOP BULK
 stopBulkBtn.addEventListener("click", async () => {
-  if (!adminToken) return showToast("⚠️ Please authenticate first.", "warning");
+  if (!adminToken) return showToast("Please authenticate first.", "warning");
   if (confirm("Stop the bulk sending?")) {
     try {
       const res = await fetch("/stop-bulk-send", {
@@ -500,7 +502,7 @@ stopBulkBtn.addEventListener("click", async () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.message || "Stop failed");
     } catch (err) {
-      showToast(`❌ ${err.message}`, "error");
+      showToast(err.message, "error");
     }
   }
 });

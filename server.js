@@ -167,10 +167,10 @@ async function initializeClient() {
 
 // Attempt auto-connect on server start IF session folder exists
 if (fs.existsSync(SESSION_ROOT)) {
-  console.log("🟡 Existing WhatsApp session found; auto-initializing...");
+  console.log("Existing WhatsApp session found; auto-initializing...");
   initializeClient();
 } else {
-  console.log("⚪ No saved WhatsApp session yet; will require QR when connecting.");
+  console.log("No saved WhatsApp session yet; will require QR when connecting.");
 }
 
 // ------------------- ROUTES -------------------
